@@ -78,7 +78,15 @@ if (isset($_REQUEST['id'])
       }
    }
 
-   $form->displayUserForm();
+   // Collect URL parameters for pre-filling the form
+   $urlParams = [];
+   foreach ($_GET as $key => $value) {
+      if (strpos($key, 'field_') === 0) {
+         $urlParams[$key] = $value;
+      }
+   }
+   
+   $form->displayUserForm($urlParams);
 
    // If user was not authenticated, remove temporary user
    if (isset($_SESSION['formcreator_public'])) {

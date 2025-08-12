@@ -941,9 +941,10 @@ PluginFormcreatorTranslatableInterface
    /**
     * Display the Form end-user form to be filled
     *
+    * @param array $urlParams Parameters from URL for pre-filling the form
     * @return void
     */
-   public function displayUserForm() : void {
+   public function displayUserForm(array $urlParams = []) : void {
       global $TRANSLATE;
 
       // Print css media
@@ -958,6 +959,12 @@ PluginFormcreatorTranslatableInterface
       }
 
       $formanswer = new PluginFormcreatorFormAnswer();
+      
+      // Load answers from URL parameters if provided
+      if (!empty($urlParams)) {
+         $formanswer->loadAnswersFromURL($urlParams, $this);
+      }
+      
       TemplateRenderer::getInstance()->display('@formcreator/pages/userform.html.twig', [
          'item'    => $this,
          'options' => [
@@ -967,6 +974,7 @@ PluginFormcreatorTranslatableInterface
             'formanswer' => $formanswer,
             'use_captcha' => ($this->fields['access_rights'] == PluginFormcreatorForm::ACCESS_PUBLIC
                               && $this->fields['is_captcha_enabled'] != '0'),
+            'url_params' => $urlParams, // Pass URL params to template
          ]
       ]);
    }

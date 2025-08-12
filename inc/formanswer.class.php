@@ -1127,6 +1127,38 @@ class PluginFormcreatorFormAnswer extends CommonDBTM
    public function getAnswers() {
       return $this->answers;
    }
+   
+   /**
+    * Load answers from URL parameters
+    * @param array $urlParams Parameters from URL in format field_FieldName => value
+    * @param PluginFormcreatorForm $form The form to load answers for
+    * @return void
+    */
+   public function loadAnswersFromURL(array $urlParams, PluginFormcreatorForm $form): void {
+      if (empty($urlParams)) {
+         return;
+      }
+      
+      // Initialize answers array if not already done
+      if (empty($this->answers)) {
+         $this->answers = [];
+      }
+      
+      // Get all questions for this form
+      $questions = (new PluginFormcreatorQuestion())->getQuestionsFromForm($form->getID());
+      
+      foreach ($questions as $question_id => $question) {
+         $questionObj = new PluginFormcreatorQuestion();
+         $questionObj->getFromDB($question_id);
+         
+         // Check if URL contains a parameter for this question
+         $fieldName = 'field_' . $questionObj->fields['name'];
+         if (isset($urlParams[$fieldName])) {
+            // Store the value in the answers array with the expected format
+            $this->answers['formcreator_field_' . $question_id] = $urlParams[$fieldName];
+         }
+      }
+   }
 
    /**
     * Gets the associated form
