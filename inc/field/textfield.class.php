@@ -187,7 +187,11 @@ class TextField extends PluginFormcreatorAbstractField
    }
 
    public function hasInput($input): bool {
-      return isset($input['formcreator_field_' . $this->question->getID()]);
+      // Check both form input and URL parameters
+      $fieldKey = 'formcreator_field_' . $this->question->getID();
+      $urlFieldKey = 'field_' . $this->question->fields['name'];
+      
+      return isset($input[$fieldKey]) || isset($_GET[$urlFieldKey]);
    }
 
    public static function canRequire(): bool {
