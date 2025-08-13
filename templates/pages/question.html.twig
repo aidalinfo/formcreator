@@ -84,11 +84,16 @@
          }
       ) }}
 
-      {{ fields.nullField({
-         'add_field_class': 'plugin_formcreator_empty',
-         label_class: 'col-xxl-4',
-         input_class: 'col-xxl-8',
-      }) }}
+      {{ fields.dropdownYesNo(
+         'edit_disabled',
+         item.fields['edit_disabled'],
+         __('Edit disabled', 'formcreator'),
+         {
+            add_field_class: 'plugin_formcreator_edit_disabled',
+            label_class: 'col-xxl-4',
+            input_class: 'col-xxl-8',
+         }
+      ) }}
 
       {% if additions|length == 0%}
          {{ fields.nullField({

@@ -159,6 +159,7 @@ CREATE TABLE IF NOT EXISTS `glpi_plugin_formcreator_questions` (
   `plugin_formcreator_sections_id` int unsigned NOT NULL DEFAULT '0',
   `fieldtype`                      varchar(30)  NOT NULL DEFAULT 'text',
   `required`                       tinyint(1)   NOT NULL DEFAULT '0',
+  `edit_disabled`                  tinyint(1)   NOT NULL DEFAULT '0',
   `show_empty`                     tinyint(1)   NOT NULL DEFAULT '0',
   `default_values`                 mediumtext,
   `itemtype`                       varchar(255) NOT NULL DEFAULT '' COMMENT 'itemtype used for glpi objects and dropdown question types',

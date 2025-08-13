@@ -136,6 +136,11 @@ abstract class PluginFormcreatorAbstractField implements PluginFormcreatorFieldI
    public function show(string $domain, bool $canEdit = true): string {
       $html = '';
 
+      // Check if edit is disabled for this question
+      if (isset($this->question->fields['edit_disabled']) && $this->question->fields['edit_disabled']) {
+         $canEdit = false;
+      }
+
       if ($this->isEditableField() && !empty($this->question->fields['description'])) {
          $description = $this->question->fields['description'];
          foreach (PluginFormcreatorCommon::getDocumentsFromTag($description) as $document) {
