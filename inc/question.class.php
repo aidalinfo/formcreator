@@ -315,6 +315,12 @@ PluginFormcreatorTranslatableInterface
 
       $field->setFormAnswer($form_answer);
 
+      // Check if edit is disabled for this question
+      $questionCanEdit = $canEdit;
+      if ($this->fields['edit_disabled'] ?? false) {
+         $questionCanEdit = false;
+      }
+
       $required = ($this->fields['required']) ? ' required' : '';
       $x = $this->fields['col'];
       $width = $this->fields['width'];
@@ -327,7 +333,7 @@ PluginFormcreatorTranslatableInterface
          . " $hiddenAttribute"
          . ' >';
       $html .= '<div class="grid-stack-item-content form-group mb-3 ' . $required . '" id="form-group-field-' . $this->getID() . '">';
-      $html .= $field->show($domain, $canEdit);
+      $html .= $field->show($domain, $questionCanEdit);
       $html .= '</div>';
       $html .= '</div>';
 
