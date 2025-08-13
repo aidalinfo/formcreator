@@ -54,7 +54,7 @@ class PluginFormcreatorUpgradeTo2_14 {
       $this->migration->addField(
          $table,
          'home_page',
-         'integer', [
+         'int unsigned', [
             'after' => 'tile_design',
             'value' => '-2',
             'update' => '0',
@@ -65,7 +65,7 @@ class PluginFormcreatorUpgradeTo2_14 {
       $this->migration->addField(
          $table,
          'is_category_visible',
-         'integer', [
+         'int unsigned', [
             'after' => 'home_page',
             'value' => '-2',
             'update' => '1',
@@ -76,7 +76,7 @@ class PluginFormcreatorUpgradeTo2_14 {
       $this->migration->addField(
          $table,
          'is_folded_menu',
-         'integer', [
+         'int unsigned', [
             'after' => 'is_category_visible',
             'value' => '-2',
             'update' => '0',
@@ -177,20 +177,20 @@ class PluginFormcreatorUpgradeTo2_14 {
       $table = 'glpi_plugin_formcreator_targettickets';
       $unsignedIntType = "INT UNSIGNED NOT NULL DEFAULT '0'";
 
-      $this->migration->addField($table, 'contract_rule', 'integer', ['after' => 'location_question', 'value' => '1']);
+      $this->migration->addField($table, 'contract_rule', 'int unsigned', ['after' => 'location_question', 'value' => '1']);
       $this->migration->addField($table, 'contract_question', $unsignedIntType, ['after' => 'contract_rule']);
    }
 
    public function addMultiLevelValidation() {
-      $this->migration->addField('glpi_plugin_formcreator_forms', 'validation_percent', 'integer', [
+      $this->migration->addField('glpi_plugin_formcreator_forms', 'validation_percent', 'int unsigned', [
          'after' => 'validation_required',
          'value' => '100',
       ]);
-      $this->migration->addField('glpi_plugin_formcreator_formanswers', 'validation_percent', 'integer', [
+      $this->migration->addField('glpi_plugin_formcreator_formanswers', 'validation_percent', 'int unsigned', [
          'after' => 'requester_id',
          'value' => '100',
       ]);
-      $this->migration->addField('glpi_plugin_formcreator_forms_validators', 'level', 'integer', [
+      $this->migration->addField('glpi_plugin_formcreator_forms_validators', 'level', 'int unsigned', [
          'after' => 'items_id',
          'value' => '1',
       ]);
@@ -200,6 +200,6 @@ class PluginFormcreatorUpgradeTo2_14 {
       $table = 'glpi_plugin_formcreator_forms';
 
       // Change default value in DB
-      $this->migration->addField($table, 'plugin_formcreator_forms_id', 'integer', ['after' => 'show_rule']);
+      $this->migration->addField($table, 'plugin_formcreator_forms_id', 'int unsigned', ['after' => 'show_rule']);
    }
 }
